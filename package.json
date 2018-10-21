@@ -1,5 +1,5 @@
 {
-  "name": "blank",
+  "name": "fyt-app-react",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,6 +13,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "https://api.findyourtotem.net/",
   "eslintConfig": {
     "extends": "react-app"
   },
