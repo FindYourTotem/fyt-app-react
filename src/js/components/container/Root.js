@@ -77,8 +77,8 @@ class Root extends Component {
         <div id="nav-bar">
           <FytLogo/>
         </div>
-        <div id="leaflet-background-map"/>
         <div id="content">
+          <div id="leaflet-background-map"/>
           <div id="map-container">
 
           </div>

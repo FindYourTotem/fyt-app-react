@@ -12,10 +12,15 @@ class LeafletMap extends Component {
   	}
 	}
 
+	componentDidMount() {
+		console.log(this.map);
+	}
+
   render() {
-  	const position = [this.state.lat, this.state.lng]
+  	const position = [this.state.lat, this.state.lng];
+
     return (
-      <Map center={position} zoom={this.state.zoom}>
+      <Map center={position} zoom={this.state.zoom} ref={(map) => {this.map = map}}>
         <TileLayer
           attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
