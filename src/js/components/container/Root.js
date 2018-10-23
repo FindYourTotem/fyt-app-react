@@ -77,8 +77,11 @@ class Root extends Component {
         <div id="nav-bar">
           <FytLogo/>
         </div>
+        <div id="leaflet-background-map"/>
         <div id="content">
-          <div id="map-container"></div>
+          <div id="map-container">
+
+          </div>
           <div id="leaderboard-container">
             <div id="leaderboard">
               <div id="leaderboard-title">Leaderboard</div>
@@ -96,4 +99,5 @@ class Root extends Component {
     );
   }
 }
+
 export default Root;
