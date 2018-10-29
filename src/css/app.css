@@ -72,6 +72,49 @@ body {
 	width: 100%;
 }
 
+.leaflet-popup-content {
+	margin: 0;
+}
+
+.leaflet-popup-content-wrapper {
+	padding: 0px;
+}
+
+.map-popup {
+	width: 192px;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	margin: 0;
+	padding: 0;
+
+	color: #1745FB;
+	font-size: 12px;
+	font-weight: 700;
+}
+
+.map-popup-image {
+	height: 48px;
+	width: 48px;
+
+	border-radius: 12px 0 0 12px;
+}
+
+.map-popup-stage-name {
+	margin-left: 8px;
+	margin-top: 4px;
+	padding: 1px;
+	border: 2px solid #1745FB;
+}
+
+.map-popup-totem-name {
+	margin-left: 8px;
+	margin-top: 4px;
+	margin-bottom: 2px;
+}
+
 /*
  * Leaderboard styles
  */

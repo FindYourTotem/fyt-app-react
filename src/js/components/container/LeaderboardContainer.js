@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 
-import { LeaderboardContainer, FytLogo } from "../Bundler";
-
-class Root extends Component {
-  constructor() {
+class LeaderboardContainer extends Component {
+	constructor() {
     super();
     this.state = {
       leaderboard: [],
@@ -94,22 +92,21 @@ class Root extends Component {
   }
 
   render() {
-
-    return (
-      <div id="container">
-        <div id="nav-bar">
-          <FytLogo/>
-        </div>
-        <div id="content">
-
-          <div id="leaflet-background-map" /* <MapContainer /> *//>
-          <div id="map-container"></div>
-
-          <LeaderboardContainer/>
+  	return (
+	    <div id="leaderboard-container">
+        <div id="leaderboard">
+          <div id="leaderboard-title">Leaderboard</div>
+          <ol id="leaderboard-list">
+              {
+                this.state.leaderboard.length > 0 
+                ? this.state.leaderboard.map((item) => this.renderLeaderboardItem(item))
+                : null
+              }
+          </ol>
         </div>
       </div>
-    );
-  }
+  	);
+  }	
 }
 
-export default Root;
+export default LeaderboardContainer;
