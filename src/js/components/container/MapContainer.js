@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import { tealTotem, pinkTotem, blueTotem } from '../Bundler';
 
 const cameras = {
   "deeplens_DUkF8LPsR3OTIuCucy2vDQ": "circuitGROUNDS",
@@ -53,8 +54,11 @@ class LeafletMap extends Component {
   }
 
   buildTotemMarker(totem) {
+    var i = Math.floor(Math.random() * 3);
+    var pins = [tealTotem, pinkTotem, blueTotem];
+
     return (
-      <Marker key={totem.totem_id} position={this.generateTotemLocation(cameras[totem.deeplens_id])}>
+      <Marker icon={pins[i]} key={totem.totem_id} position={this.generateTotemLocation(cameras[totem.deeplens_id])}>
         <Popup>
           <div className="map-popup">
             <img className="map-popup-image" src={this.getS3Url(totem)}/>
