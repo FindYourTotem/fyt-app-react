@@ -20,7 +20,7 @@ class LeaderboardContainer extends Component {
     for (var i = 0; i < state.length; i++) {
       var item = {
         key: i + 1,
-        name: state[i][0],
+        name: state[i][0].replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function(name) { return name.toUpperCase()}),
         kineticScore: state[i][1].kineticFIELD,
         circuitScore: state[i][1].circuitGROUNDS,
         neonScore: state[i][1].neonGARDEN,
