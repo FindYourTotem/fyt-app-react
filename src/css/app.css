@@ -24,10 +24,10 @@ body {
 }
 
 #leaderboard-container {
-	width: 40vw;
+	width: 35vw;
 	height: 85%;
 
-	left: 60vw;
+	left: 65vw;
 	position: absolute;
 	z-index: 1;
 
