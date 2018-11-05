@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import { tealTotem, pinkTotem, blueTotem } from '../Bundler';
 
+var _ = require("lodash");
+
 const cameras = {
   "deeplens_DUkF8LPsR3OTIuCucy2vDQ": "circuitGROUNDS",
   "deeplens_7how6uNkTuGL0A4XA-dk8g": "neonGARDEN",
@@ -27,8 +29,14 @@ class LeafletMap extends Component {
         neonGARDEN: [],
         kineticFIELD: []
       },
+      totemsWithCoords: {
+        circuitGROUNDS: [],
+        neonGARDEN: [],
+        kineticFIELD: []
+      }
   	}
 
+    this.refreshMap = this.refreshMap.bind(this);
     this.generateTotemLocation = this.generateTotemLocation.bind(this);
     this.buildTotemMarker = this.buildTotemMarker.bind(this);
     this.getRandomCoord = this.getRandomCoord.bind(this);
@@ -36,7 +44,6 @@ class LeafletMap extends Component {
 	}
 
   getRandomCoord(base, variation, offset = 0) {
-
     return base + (Math.random() * variation) - offset;
   }
 
@@ -76,7 +83,9 @@ class LeafletMap extends Component {
     return "https://s3.amazonaws.com/" + item.s3_bucket + "/" + item.s3_key;
   }
 
-	componentDidMount() {
+  refreshMap() {
+    console.log("Refreshing map...");
+
     fetch('data/dynamo/map')
       .then(res => res.json())
       .then(json => {
@@ -93,9 +102,19 @@ class LeafletMap extends Component {
               totems[cameras[key]] = map[key];
             }
           }
+        }
+        if (!_.isEqual(totems, this.state.totems)) {
           this.setState({totems: totems});
         }
       });
+  }
+
+  componentWillMount() {
+    this.refreshMap();
+  }
+
+	componentDidMount() {
+    this.timer = setInterval(() => this.refreshMap(), 5000);
 	}
 
   render() {

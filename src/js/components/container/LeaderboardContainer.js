@@ -9,6 +9,7 @@ class LeaderboardContainer extends Component {
       images: {},
     };
 
+    this.refreshLeaderboard = this.refreshLeaderboard.bind(this);
     this.transformStateToLeaderboard = this.transformStateToLeaderboard.bind(this);
     this.renderLeaderboardItem = this.renderLeaderboardItem.bind(this);
     this.attachLeaderboardImages = this.attachLeaderboardImages.bind(this);
@@ -40,7 +41,6 @@ class LeaderboardContainer extends Component {
           var images = this.state.images;
           images[json.totem_id] = this.getS3Url(json);
           this.setState({images: images});
-          console.log(images);
         });
     }
   }
@@ -80,7 +80,9 @@ class LeaderboardContainer extends Component {
     return "https://s3.amazonaws.com/" + item.s3_bucket + "/" + item.s3_key;
   }
 
-  componentWillMount() {
+  refreshLeaderboard() {
+    console.log("Refreshing leaderboard...");
+
     fetch('/data/dynamo/leaderboard')
       .then(response => response.json())
       .then(json => {
@@ -90,7 +92,15 @@ class LeaderboardContainer extends Component {
       });
     fetch('/data/auth/celebrities/invalid')
       .then(res => res.json())
-      .then(json => this.setState({celebrities: json}));
+      .then(json => this.setState({celebrities: json}));    
+  }
+
+  componentWillMount() {
+    this.refreshLeaderboard();
+  }
+
+  componentDidMount() {
+    this.timer = setInterval(() => this.refreshLeaderboard(), 5000);
   }
 
   render() {
