@@ -37,8 +37,10 @@ class LeafletMap extends Component {
   	}
 
     this.refreshMap = this.refreshMap.bind(this);
+    this.reconcileMap = this.reconcileMap.bind(this);
     this.generateTotemLocation = this.generateTotemLocation.bind(this);
     this.buildTotemMarker = this.buildTotemMarker.bind(this);
+    this.buildTotemPopup = this.buildTotemPopup.bind(this);
     this.getRandomCoord = this.getRandomCoord.bind(this);
     this.getS3Url = this.getS3Url.bind(this);
 	}
@@ -61,21 +63,29 @@ class LeafletMap extends Component {
   }
 
   buildTotemMarker(totem) {
-    var i = Math.floor(Math.random() * 3);
-    var pins = [tealTotem, pinkTotem, blueTotem];
-
     return (
-      <Marker icon={pins[i]} key={totem.totem_id} position={this.generateTotemLocation(cameras[totem.deeplens_id])}>
-        <Popup>
-          <div className="map-popup">
-            <img className="map-popup-image" src={this.getS3Url(totem)}/>
-            <div>
-              <div className="map-popup-stage-name">{cameras[totem.deeplens_id]}</div>
-              <div className="map-popup-totem-name">{totem.totem_id}</div>
-            </div>
-          </div>
-        </Popup>
+      <Marker icon={totem.icon} key={totem.totem_id} position={totem.coords} ref={(marker) => {
+          if (totem.isMostRecent) {
+            marker.leafletElement.openPopup();      
+          }
+        }}
+        totem={totem}>
+        {this.buildTotemPopup(totem)}
       </Marker>
+    );
+  }
+
+  buildTotemPopup(totem) {
+    return (
+      <Popup>
+        <div className="map-popup">
+          <img className="map-popup-image" src={this.getS3Url(totem)}/>
+          <div>
+            <div className="map-popup-stage-name">{cameras[totem.deeplens_id]}</div>
+            <div className="map-popup-totem-name">{totem.totem_id}</div>
+          </div>
+        </div>
+      </Popup>
     );
   }
 
@@ -103,10 +113,73 @@ class LeafletMap extends Component {
             }
           }
         }
-        if (!_.isEqual(totems, this.state.totems)) {
-          this.setState({totems: totems});
+        for (var stage in totems) {
+          for (var totem in totems[stage]) {
+            var i = Math.floor(Math.random() * 3);
+            var pins = [tealTotem, pinkTotem, blueTotem];
+            totems[stage][totem].icon = pins[i];
+            totems[stage][totem].coords = this.generateTotemLocation(stage);
+
+          }
         }
+        this.setState({totems: this.reconcileMap(this.state.totems, totems)});
       });
+  }
+
+  reconcileMap(previousMap, newMap) {
+    var differences = {
+      circuitGROUNDS: [],
+      neonGARDEN: [],
+      kineticFIELD: []
+    };
+    if (_.isEqual(differences, previousMap)) {
+      return newMap;
+    }
+
+    function totemIsPresent(newTotem, otherStage) {
+      for (var j in otherStage) {
+        var totem = otherStage[j];
+        if (newTotem.totem_id === totem.totem_id
+          && newTotem.s3_bucket === totem.s3_bucket
+          && newTotem.s3_key === totem.s3_key
+          && newTotem.rekognition_time === totem.rekognition_time) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    var mostRecentTotem = "";
+
+    // Add new totems
+    for (var stage in differences) {
+      var map1Stage = previousMap[stage];
+      var map2Stage = newMap[stage];
+
+      for (var i in map2Stage) {
+        var newTotem = map2Stage[i];
+        if (!totemIsPresent(newTotem, map1Stage)) {
+          differences[stage].push(newTotem);
+          mostRecentTotem = newTotem.totem_id;
+        }
+      }
+
+      // Remove old totems
+      for (var i in map1Stage) {
+        var totem = map1Stage[i];
+        if (totemIsPresent(totem, map2Stage)) {
+          differences[stage].push(totem);
+        }
+      }
+    }
+
+    for (var stage in differences) {
+      for (var totem in differences[stage]) {
+        var totem = differences[stage][totem];
+        totem.isMostRecent = (mostRecentTotem === totem.totem_id);
+      }
+    }
+    return differences;
   }
 
   componentWillMount() {
@@ -114,7 +187,9 @@ class LeafletMap extends Component {
   }
 
 	componentDidMount() {
-    this.timer = setInterval(() => this.refreshMap(), 5000);
+    this.timer = setInterval(() => {
+      this.refreshMap();
+    }, 5000);
 	}
 
   render() {
