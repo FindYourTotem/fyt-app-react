@@ -5,10 +5,10 @@ import FytLogo from './presentational/FytLogo';
 import { tealTotem, pinkTotem, blueTotem } from './presentational/TotemPin';
 
 export {
-	LeaderboardContainer,
-	MapContainer,
-	FytLogo,
-	tealTotem,
-	pinkTotem,
-	blueTotem
+  LeaderboardContainer,
+  MapContainer,
+  FytLogo,
+  tealTotem,
+  pinkTotem,
+  blueTotem
 }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 class LeaderboardContainer extends Component {
-	constructor() {
+  constructor() {
     super();
     this.state = {
       leaderboard: [],
@@ -104,8 +104,8 @@ class LeaderboardContainer extends Component {
   }
 
   render() {
-  	return (
-	    <div id="leaderboard-container">
+    return (
+      <div id="leaderboard-container">
         <div id="leaderboard">
           <div id="leaderboard-title">Leaderboard</div>
           <ol id="leaderboard-list">
@@ -117,8 +117,8 @@ class LeaderboardContainer extends Component {
           </ol>
         </div>
       </div>
-  	);
-  }	
+    );
+  } 
 }
 
 export default LeaderboardContainer;

@@ -17,13 +17,13 @@ const stages = {
 };
 
 class LeafletMap extends Component {
-	constructor(props) {
-		super(props);
+  constructor(props) {
+  super(props);
 
-		this.state = {
-	    lat: 28.537833,
-	    lng: -81.399609,
-	    zoom: 17,
+  this.state = {
+      lat: 28.537833,
+      lng: -81.399609,
+      zoom: 17,
       totems: {
         circuitGROUNDS: [],
         neonGARDEN: [],
@@ -34,7 +34,7 @@ class LeafletMap extends Component {
         neonGARDEN: [],
         kineticFIELD: []
       }
-  	}
+    }
 
     this.refreshMap = this.refreshMap.bind(this);
     this.reconcileMap = this.reconcileMap.bind(this);
@@ -43,7 +43,7 @@ class LeafletMap extends Component {
     this.buildTotemPopup = this.buildTotemPopup.bind(this);
     this.getRandomCoord = this.getRandomCoord.bind(this);
     this.getS3Url = this.getS3Url.bind(this);
-	}
+  }
 
   getRandomCoord(base, variation, offset = 0) {
     return base + (Math.random() * variation) - offset;
@@ -52,7 +52,7 @@ class LeafletMap extends Component {
   generateTotemLocation(stage) {
     switch(stage) {
       case "circuitGROUNDS":
-        return [this.getRandomCoord(stages.circuitGROUNDS.lat, .0003, .0003), this.getRandomCoord(stages.circuitGROUNDS.lng, -.0015)];
+        return [this.getRandomCoord(stages.circuitGROUNDS.lat, .0001, .0001), this.getRandomCoord(stages.circuitGROUNDS.lng, -.0015)];
       case "neonGARDEN":
         return [this.getRandomCoord(stages.neonGARDEN.lat, .0005), this.getRandomCoord(stages.neonGARDEN.lng, -.001)];
       case "kineticFIELD":
@@ -186,14 +186,14 @@ class LeafletMap extends Component {
     this.refreshMap();
   }
 
-	componentDidMount() {
+  componentDidMount() {
     this.timer = setInterval(() => {
       this.refreshMap();
     }, 5000);
-	}
+  }
 
   render() {
-  	const position = [this.state.lat, this.state.lng];
+    const position = [this.state.lat, this.state.lng];
 
     return (
       <Map center={position} zoom={this.state.zoom} ref={(map) => {this.map = map}}>
