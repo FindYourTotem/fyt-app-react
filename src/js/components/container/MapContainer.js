@@ -12,9 +12,9 @@ const cameras = {
 };
 
 const stages = {
-  circuitGROUNDS: {lat: 28.536933, lng: -81.399709},
-  neonGARDEN: {lat: 28.536033, lng: -81.401809},
-  kineticFIELD: {lat: 28.539833, lng: -81.404609},
+  circuitGROUNDS: {lat: 28.537275, lng: -81.401365},
+  neonGARDEN: {lat: 28.537075, lng: -81.402250},
+  kineticFIELD: {lat: 28.537350, lng: -81.404150},
 };
 
 class LeafletMap extends Component {
