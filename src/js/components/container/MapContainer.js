@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Map, ImageOverlay, TileLayer, Marker, Popup } from 'react-leaflet';
 import { tealTotem, pinkTotem, blueTotem } from '../Bundler';
 
-var map_cropped = require("../../../res/map_cropped.png");
+var festival_map = require("../../../res/festival_map.png");
 var _ = require("lodash");
 
 const cameras = {
@@ -204,7 +204,7 @@ class LeafletMap extends Component {
           opacity={0.4}
         />
         <ImageOverlay
-        	url = {map_cropped}
+        	url = {festival_map}
         	bounds={[[28.5404900,-81.4057600], [28.535375, -81.399075]]}
         	opacity={0.45}
         />
