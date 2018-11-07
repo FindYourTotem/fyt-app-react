@@ -80,9 +80,12 @@ body {
 	padding: 0px;
 }
 
-.map-popup {
-	width: 192px;
+.stage-popup {
+	margin: 8px 24px;
+	color: white;
+}
 
+.map-popup {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -90,29 +93,42 @@ body {
 	margin: 0;
 	padding: 0;
 
-	color: #1745FB;
+	border-radius: 12px;
+	background-color: #010449;
 	font-size: 12px;
 	font-weight: 700;
 }
 
 .map-popup-image {
-	height: 48px;
-	width: 48px;
+	height: 52px;
+	width: 52px;
 
 	border-radius: 12px 0 0 12px;
 }
 
 .map-popup-stage-name {
+	display: inline-block;
 	margin-left: 8px;
 	margin-top: 4px;
-	padding: 1px;
+	padding: 1px 4px 1px 4px;
 	border: 2px solid #1745FB;
+	color: white;
 }
 
 .map-popup-totem-name {
 	margin-left: 8px;
 	margin-top: 4px;
-	margin-bottom: 2px;
+	margin-bottom: 4px;
+	margin-right: 8px;
+	color: #FB30FB;
+}
+
+.map-popup-totem-divider {
+	color: white;
+}
+
+.map-popup-timestamp {
+	color: #62F6DC;
 }
 
 /*

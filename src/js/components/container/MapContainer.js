@@ -44,6 +44,7 @@ class LeafletMap extends Component {
     this.buildTotemPopup = this.buildTotemPopup.bind(this);
     this.getRandomCoord = this.getRandomCoord.bind(this);
     this.getS3Url = this.getS3Url.bind(this);
+    this.formatTimestamp = this.formatTimestamp.bind(this);
   }
 
   getRandomCoord(base, variation, offset = 0) {
@@ -53,11 +54,11 @@ class LeafletMap extends Component {
   generateTotemLocation(stage) {
     switch(stage) {
       case "circuitGROUNDS":
-        return [this.getRandomCoord(stages.circuitGROUNDS.lat, .0001, .0001), this.getRandomCoord(stages.circuitGROUNDS.lng, -.0015)];
+        return [this.getRandomCoord(stages.circuitGROUNDS.lat, .0005, .0001), this.getRandomCoord(stages.circuitGROUNDS.lng, -.0005)];
       case "neonGARDEN":
-        return [this.getRandomCoord(stages.neonGARDEN.lat, .0005), this.getRandomCoord(stages.neonGARDEN.lng, -.001)];
+        return [this.getRandomCoord(stages.neonGARDEN.lat, .001, .0005), this.getRandomCoord(stages.neonGARDEN.lng, -.0002, .0001)];
       case "kineticFIELD":
-        return [this.getRandomCoord(stages.kineticFIELD.lat, -.0015), this.getRandomCoord(stages.kineticFIELD.lng, .0005, .0005)];
+        return [this.getRandomCoord(stages.kineticFIELD.lat, .0008, .0003), this.getRandomCoord(stages.kineticFIELD.lng, .0005, .00025)];
       default:
         return [this.state.lat, this.state.lng];
     }
@@ -83,7 +84,13 @@ class LeafletMap extends Component {
           <img className="map-popup-image" src={this.getS3Url(totem)}/>
           <div>
             <div className="map-popup-stage-name">{cameras[totem.deeplens_id]}</div>
-            <div className="map-popup-totem-name">{totem.totem_id}</div>
+            <div className="map-popup-totem-name">
+            {
+              totem.totem_id.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function(name) { return name.toUpperCase()})
+            }
+            <span className="map-popup-totem-divider">{" | "}</span>
+            <span className="map-popup-timestamp">{this.formatTimestamp(totem.rekognition_time)}</span>
+            </div>
           </div>
         </div>
       </Popup>
@@ -92,6 +99,19 @@ class LeafletMap extends Component {
 
   getS3Url(item) {
     return "https://s3.amazonaws.com/" + item.s3_bucket + "/" + item.s3_key;
+  }
+
+  formatTimestamp(rekognition_time) {
+    var d = new Date(rekognition_time);
+    var hours = d.getHours();
+    var ampm = "AM";
+    if (hours >= 12) {
+      ampm = "PM";
+      if (hours > 12) {
+        hours -= 12;
+      }
+    }
+    return hours + ":" + d.getMinutes() + ":" + d.getSeconds() + " " + ampm;
   }
 
   refreshMap() {
@@ -210,17 +230,23 @@ class LeafletMap extends Component {
         />
         <Marker position={[stages.circuitGROUNDS.lat, stages.circuitGROUNDS.lng]}>
           <Popup>
-            circuitGROUNDS
+            <div className="map-popup">
+              <span className="stage-popup">circuitGROUNDS</span>
+            </div>
           </Popup>
         </Marker>
         <Marker position={[stages.neonGARDEN.lat, stages.neonGARDEN.lng]}>
           <Popup>
-            neonGARDEN
+            <div className="map-popup">
+              <span className="stage-popup">neonGARDEN</span>
+            </div>
           </Popup>
         </Marker>
         <Marker position={[stages.kineticFIELD.lat, stages.kineticFIELD.lng]}>
           <Popup>
-            kineticFIELD
+            <div className="map-popup">
+              <span className="stage-popup">kineticFIELD</span>
+            </div>
           </Popup>
         </Marker>
         {this.state.totems.circuitGROUNDS.size === 0 ? null : this.state.totems.circuitGROUNDS.map(totem => this.buildTotemMarker(totem))}
