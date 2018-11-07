@@ -17,13 +17,13 @@ const stages = {
 };
 
 class LeafletMap extends Component {
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
 
-		this.state = {
-	    lat: 28.537833,
-	    lng: -81.399609,
-	    zoom: 17,
+    this.state = {
+      lat: 28.537833,
+      lng: -81.399609,
+      zoom: 17,
       totems: {
         circuitGROUNDS: [],
         neonGARDEN: [],
@@ -34,7 +34,7 @@ class LeafletMap extends Component {
         neonGARDEN: [],
         kineticFIELD: []
       }
-  	}
+    }
 
     this.refreshMap = this.refreshMap.bind(this);
     this.reconcileMap = this.reconcileMap.bind(this);
@@ -43,7 +43,7 @@ class LeafletMap extends Component {
     this.buildTotemPopup = this.buildTotemPopup.bind(this);
     this.getRandomCoord = this.getRandomCoord.bind(this);
     this.getS3Url = this.getS3Url.bind(this);
-	}
+  }
 
   getRandomCoord(base, variation, offset = 0) {
     return base + (Math.random() * variation) - offset;
