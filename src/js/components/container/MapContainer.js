@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Map, ImageOverlay, TileLayer, Marker, Popup } from 'react-leaflet';
 import { tealTotem, pinkTotem, blueTotem } from '../Bundler';
 
+var festival_map = require("../../../res/festival_map.png");
 var _ = require("lodash");
 
 const cameras = {
@@ -199,7 +200,13 @@ class LeafletMap extends Component {
       <Map center={position} zoom={this.state.zoom} ref={(map) => {this.map = map}}>
         <TileLayer
           attribution="Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL."
-          url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+          url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
+          opacity={0.4}
+        />
+        <ImageOverlay
+        	url = {festival_map}
+        	bounds={[[28.5404900,-81.4057600], [28.535375, -81.399075]]}
+        	opacity={0.45}
         />
         <Marker position={[stages.circuitGROUNDS.lat, stages.circuitGROUNDS.lng]}>
           <Popup>
