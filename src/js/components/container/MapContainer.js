@@ -6,15 +6,18 @@ var festival_map = require("../../../res/festival_map.png");
 var _ = require("lodash");
 
 const cameras = {
-  "deeplens_DUkF8LPsR3OTIuCucy2vDQ": "circuitGROUNDS",
-  "deeplens_7how6uNkTuGL0A4XA-dk8g": "neonGARDEN",
-  "camera_4": "kineticFIELD"
+  "deeplens_3acGkRAKQs6P8oQK-s3CkA": "neonGARDEN",
+  "deeplens_q0a9bL0DQsWsa9ZHT6tcCw": "neonGARDEN",
+  "deeplens_NHry9HuHTsKtkZ3cnwwCzA": "carnivalSQUARE",
+  "deeplens_X2wf7yRYRMGS3BUXK1sRlw": "carnivalSQUARE",
+  "deeplens_E5oVvr_4SgGJG20pXTfVdA": "circuitGROUNDS",
+  "deeplens__WQ7e4RZSti6WXrnc3dmmg": "circuitGROUNDS",
 };
 
 const stages = {
   circuitGROUNDS: {lat: 28.537275, lng: -81.401365},
   neonGARDEN: {lat: 28.537075, lng: -81.402250},
-  kineticFIELD: {lat: 28.537350, lng: -81.404150},
+  carnivalSQUARE: {lat: 28.537350, lng: -81.404150},
 };
 
 class LeafletMap extends Component {
@@ -28,12 +31,12 @@ class LeafletMap extends Component {
       totems: {
         circuitGROUNDS: [],
         neonGARDEN: [],
-        kineticFIELD: []
+        carnivalSQUARE: []
       },
       totemsWithCoords: {
         circuitGROUNDS: [],
         neonGARDEN: [],
-        kineticFIELD: []
+        carnivalSQUARE: []
       }
     }
 
@@ -57,8 +60,8 @@ class LeafletMap extends Component {
         return [this.getRandomCoord(stages.circuitGROUNDS.lat, .0005, .0001), this.getRandomCoord(stages.circuitGROUNDS.lng, -.0005)];
       case "neonGARDEN":
         return [this.getRandomCoord(stages.neonGARDEN.lat, .001, .0005), this.getRandomCoord(stages.neonGARDEN.lng, -.0002, .0001)];
-      case "kineticFIELD":
-        return [this.getRandomCoord(stages.kineticFIELD.lat, .0008, .0003), this.getRandomCoord(stages.kineticFIELD.lng, .0005, .00025)];
+      case "carnivalSQUARE":
+        return [this.getRandomCoord(stages.carnivalSQUARE.lat, .0008, .0003), this.getRandomCoord(stages.carnivalSQUARE.lng, .0005, .00025)];
       default:
         return [this.state.lat, this.state.lng];
     }
@@ -124,7 +127,7 @@ class LeafletMap extends Component {
         var totems = {
           circuitGROUNDS: [],
           neonGARDEN: [],
-          kineticFIELD: []
+          carnivalSQUARE: []
         };
         for (var key in map) {
           const stage = cameras[key];
@@ -151,7 +154,7 @@ class LeafletMap extends Component {
     var differences = {
       circuitGROUNDS: [],
       neonGARDEN: [],
-      kineticFIELD: []
+      carnivalSQUARE: []
     };
     if (_.isEqual(differences, previousMap)) {
       return newMap;
@@ -242,16 +245,16 @@ class LeafletMap extends Component {
             </div>
           </Popup>
         </Marker>
-        <Marker position={[stages.kineticFIELD.lat, stages.kineticFIELD.lng]}>
+        <Marker position={[stages.carnivalSQUARE.lat, stages.carnivalSQUARE.lng]}>
           <Popup>
             <div className="map-popup">
-              <span className="stage-popup">kineticFIELD</span>
+              <span className="stage-popup">carnivalSQUARE</span>
             </div>
           </Popup>
         </Marker>
         {this.state.totems.circuitGROUNDS.size === 0 ? null : this.state.totems.circuitGROUNDS.map(totem => this.buildTotemMarker(totem))}
         {this.state.totems.neonGARDEN.size === 0 ? null : this.state.totems.neonGARDEN.map(totem => this.buildTotemMarker(totem))}
-        {this.state.totems.kineticFIELD.size === 0 ? null : this.state.totems.kineticFIELD.map(totem => this.buildTotemMarker(totem))}
+        {this.state.totems.carnivalSQUARE.size === 0 ? null : this.state.totems.carnivalSQUARE.map(totem => this.buildTotemMarker(totem))}
       </Map>
     );
   }
