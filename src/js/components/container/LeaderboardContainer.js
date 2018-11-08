@@ -23,7 +23,7 @@ class LeaderboardContainer extends Component {
         key: i + 1,
         id: state[i][0],
         name: state[i][0].replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, function(name) { return name.toUpperCase()}),
-        kineticScore: state[i][1].kineticFIELD,
+        carnivalScore: state[i][1].carnivalSQUARE,
         circuitScore: state[i][1].circuitGROUNDS,
         neonScore: state[i][1].neonGARDEN,
       };
@@ -56,8 +56,8 @@ class LeaderboardContainer extends Component {
             <div className="leaderboard-item-data-name">{item.name}</div>
             <div className="leaderboard-item-data-scores">
               <div>
-                <div className="leaderboard-item-data-scores-stage">kineticFIELD</div>
-                <div>{item.kineticScore}</div>
+                <div className="leaderboard-item-data-scores-stage">carnivalSQUARE</div>
+                <div>{item.carnivalScore}</div>
               </div>
 
               <div>
