@@ -106,7 +106,7 @@ class LeafletMap extends Component {
 
   formatTimestamp(rekognition_time) {
     var d = new Date(rekognition_time);
-    var hours = d.getHours();
+    var hours = d.getHours() - 5;
     var ampm = "AM";
     if (hours >= 12) {
       ampm = "PM";
