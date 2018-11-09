@@ -171,6 +171,7 @@ body {
 #leaderboard ol {
 	width: 90%;
 	height: 90%;
+	min-height: 90%;
 	max-height: 90%;
 	overflow: auto;
 }
