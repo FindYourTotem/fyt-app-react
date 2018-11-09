@@ -129,11 +129,17 @@ class LeafletMap extends Component {
           neonGARDEN: [],
           carnivalSQUARE: []
         };
+        console.log(map); //DEBUG
         for (var key in map) {
+          console.log("Key - " + key); //DEBUG
           const stage = cameras[key];
+          console.log("Stage - " + stage); //DEBUG
+          console.log(map[key]); //DEBUG
           if (stage !== undefined) {
             if (totems[cameras[key]] !== undefined) {
-              totems[cameras[key]] = map[key];
+              for (var totem in map[key]) {
+                totems[cameras[key]].push(map[key][totem]);
+              }
             }
           }
         }
