@@ -106,6 +106,8 @@ class LeaderboardContainer extends Component {
   render() {
     return (
       <div id="leaderboard-container">
+
+        <div id="deeplens-window" />
         <div id="leaderboard">
           <div id="leaderboard-title">Leaderboard</div>
           <ol id="leaderboard-list">

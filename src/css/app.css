@@ -32,6 +32,7 @@ body {
 	z-index: 1;
 
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 }
@@ -132,12 +133,19 @@ body {
 }
 
 /*
+ * Deeplens window
+ */
+ #deeplens-window {
+ 	width: 90%;
+ 	height: 55%;
+ }
+
+/*
  * Leaderboard styles
  */
 
 #leaderboard {
 	width: 90%;
-	height: 90%;
 
 	display: flex;
 	flex-direction: column;
@@ -146,8 +154,8 @@ body {
 
 	font-family: "Avenir Next", "Avenir", Gotham, "Helvetica Neue", Helvetica, Arial, "sans-serif";
 	border-radius: 12px;
-	background-color: #F5F7F9;
-	box-shadow: 0px 1px 15px 2px #020449;
+	/*background-color: #F5F7F9;*/
+	/*box-shadow: 0px 1px 15px 2px #020449;*/
 }
 
 #leaderboard-title {
@@ -155,7 +163,7 @@ body {
 
 	margin-top: 16px;
 
-	color: #1645FB;
+	color: #62F6DC;
 	font-weight: bold;
 }
 
@@ -232,5 +240,5 @@ body {
 
 #leaderboard .leaderboard-item-key {
 	font-weight: bolder;
-	color: #020449;
+	color: white;
 }
